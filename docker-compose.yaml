@@ -35,7 +35,6 @@ services:
       - ./frontend/src:/app/src
     stdin_open: true
     tty: true
-    extra_hosts: host.docker.internal:host-gateway
     depends_on:
       - backend
 
