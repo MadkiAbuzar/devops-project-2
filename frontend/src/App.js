@@ -14,7 +14,9 @@ function App() {
 			setIsLoading(true);
 
 			try {
-				const response = await fetch('http://backend/goals');
+				const response = await fetch(
+					`http://${process.env.MASTER_IP}:${process.env.MASTER_PORT}/backend/goals`
+				);
 
 				const resData = await response.json();
 
@@ -39,15 +41,18 @@ function App() {
 		setIsLoading(true);
 
 		try {
-			const response = await fetch('http://backend/goals', {
-				method: 'POST',
-				body: JSON.stringify({
-					text: goalText,
-				}),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(
+				`http://${process.env.MASTER_IP}:${process.env.MASTER_PORT}/backend/goals`,
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						text: goalText,
+					}),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
 
 			const resData = await response.json();
 
@@ -78,9 +83,13 @@ function App() {
 		setIsLoading(true);
 
 		try {
-			const response = await fetch('http://backend/goals/' + goalId, {
-				method: 'DELETE',
-			});
+			const response = await fetch(
+				`http://${process.env.MASTER_IP}:${process.env.MASTER_PORT}/backend/goals/` +
+					goalId,
+				{
+					method: 'DELETE',
+				}
+			);
 
 			const resData = await response.json();
 
