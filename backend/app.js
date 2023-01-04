@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.get('/goals', async (req, res) => {
+app.get('/backend/goals', async (req, res) => {
 	console.log('TRYING TO FETCH GOALS');
 	try {
 		const goals = await Goal.find();
@@ -44,7 +44,7 @@ app.get('/goals', async (req, res) => {
 	}
 });
 
-app.post('/goals', async (req, res) => {
+app.post('/backend/goals', async (req, res) => {
 	console.log('TRYING TO STORE GOAL');
 	const goalText = req.body.text;
 
@@ -70,7 +70,7 @@ app.post('/goals', async (req, res) => {
 	}
 });
 
-app.delete('/goals/:id', async (req, res) => {
+app.delete('/backend/goals/:id', async (req, res) => {
 	console.log('TRYING TO DELETE GOAL');
 	try {
 		await Goal.deleteOne({ _id: req.params.id });
