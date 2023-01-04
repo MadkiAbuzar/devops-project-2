@@ -4,11 +4,12 @@ import GoalInput from './components/goals/GoalInput';
 import CourseGoals from './components/goals/CourseGoals';
 import ErrorAlert from './components/UI/ErrorAlert';
 
+let base_url = window.location.host;
 function App() {
 	const [loadedGoals, setLoadedGoals] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
-
+	let base_url = window.location.host;
 	useEffect(function () {
 		async function fetchData() {
 			setIsLoading(true);
