@@ -12,7 +12,7 @@ function App() {
 	useEffect(function () {
 		async function fetchData() {
 			setIsLoading(true);
-			let base_url = window.location.origin;
+			let base_url = window.location.host;
 			try {
 				const response = await fetch(`http://${base_url}/backend/goals`);
 
