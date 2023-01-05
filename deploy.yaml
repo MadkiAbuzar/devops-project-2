@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  labels:
+    app: fontend-deploy
+spec:
+  selector:
+    matchLabels:
+      app: frontend-pod
+  template:
+    metadata:
+      name: frontend-pod
+      labels:
+        app: frontend-pod
+    spec:
+      containers:
+        - name: frontend-pod
+          image: abuzarmadki09/devops-project-2-frontend
+          ports:
+            - containerPort: 3000
+  replicas: 2
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
