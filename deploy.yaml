@@ -20,7 +20,3 @@ spec:
           ports:
             - containerPort: 3000
   replicas: 2
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
