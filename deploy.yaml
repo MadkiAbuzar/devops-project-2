@@ -1,3 +1,99 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-creds
+stringData:
+  MONGO_INITDB_ROOT_USERNAME: max
+  MONGO_INITDB_ROOT_PASSWORD: secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-db-con-creds
+stringData:
+  MONGODB_USERNAME: max
+  MONGODB_PASSWORD: secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels:
+    app: db-deploy
+spec:
+  selector:
+    matchLabels:
+      app: db-pod
+  template:
+    metadata:
+      name: db-pod
+      labels:
+        app: db-pod
+    spec:
+      containers:
+        - name: db-pod
+          image: mongo
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - secretRef:
+                name: mongo-creds
+  replicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb-service
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 27017
+      port: 27017
+  selector:
+    app: db-pod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deploy
+  labels:
+    app: backend-deploy
+spec:
+  selector:
+    matchLabels:
+      app: backend-pod
+  template:
+    metadata:
+      name: backend-pod
+      labels:
+        app: backend-pod
+    spec:
+      containers:
+        - name: backend-pod
+          image: abuzarmadki09/devops-project-2-backend
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: backend-db-con-creds
+  replicas: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  labels:
+    app: backend-service
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: backend-pod
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,3 +116,43 @@ spec:
           ports:
             - containerPort: 3000
   replicas: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  labels:
+    app: frontend-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: front-svc-prt
+      targetPort: 3000
+      port: 80
+  selector:
+    app: frontend-pod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /backend
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
