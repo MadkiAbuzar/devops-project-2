@@ -5,7 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-
+mongoose.Promise = global.Promise;
 const Goal = require('./models/goal');
 
 const app = express();
@@ -87,7 +87,7 @@ mongoose.connect(
 	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
 	{
 		useNewUrlParser: true,
-		//useUnifiedTopology: true,
+		useUnifiedTopology: true,
 	},
 	(err) => {
 		if (err) {
