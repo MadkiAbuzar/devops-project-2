@@ -14,19 +14,6 @@ spec:
       labels:
         app: backend-pod
     spec:
-      readinessProbe:
-        httpGet:
-          path: /backend/goals
-          port: 80
-        initialDelaySeconds: 10
-        periodSeconds: 5
-      livenessProbe:
-        httpGet:
-          path: /backend/goals
-          port: 80
-        initialDelaySeconds: 3
-        periodSeconds: 3
-        failureThreshold: 2
       containers:
         - name: backend-pod
           image: abuzarmadki09/devops-project-2-backend
@@ -35,6 +22,19 @@ spec:
           envFrom:
             - secretRef:
                 name: backend-db-con-creds
+          readinessProbe:
+            httpGet:
+              path: /backend/goals
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /backend/goals
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            failureThreshold: 2
   replicas: 2
 ---
 apiVersion: v1
