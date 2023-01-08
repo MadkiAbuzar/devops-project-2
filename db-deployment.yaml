@@ -14,7 +14,7 @@ spec:
       labels:
         app: db-pod
     spec:
-      #dnsPolicy: Default
+      # dnsPolicy: Default
       containers:
         - name: db-pod
           image: mongo
@@ -27,43 +27,27 @@ spec:
           envFrom:
             - secretRef:
                 name: mongo-creds
-          # livenessProbe:
-          #   exec:
-          #     command:
-          #       - mongosh
-          #       - --eval
-          #       - db.adminCommand('ping')
-          #   failureThreshold: 3
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 5
-          #   successThreshold: 1
-          #   timeoutSeconds: 5
-          # readinessProbe:
-          #   exec:
-          #     command:
-          #       - mongosh
-          #       - --eval
-          #       - db.adminCommand('ping')
-          #   failureThreshold: 3
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 10
-          #   successThreshold: 1
           livenessProbe:
-            enabled: false
-          customLivenessProbe:
             exec:
               command:
-                - sh
-                - -c
-                - mongo --port 27017 --eval "db.adminCommand('ping')"
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 5
           readinessProbe:
-            enabled: false
-          customReadinessProbe:
             exec:
               command:
-                - sh
-                - -c
-                - mongo --port 27017 --eval 'db.isMaster().ismaster || db.isMaster().secondary' | grep -q 'true'
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
   replicas: 1
 ---
 apiVersion: v1
