@@ -44,13 +44,12 @@ spec:
           readinessProbe:
             exec:
               command:
-                command:
-                  - echo
-                  - -e
-                  - '--eval "db.adminCommand(''ping'')"'
-                  - \|
-                  - xargs
-                  - mongo
+                - echo
+                - -e
+                - '--eval "db.adminCommand(''ping'')"'
+                - \|
+                - xargs
+                - mongo
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 10
