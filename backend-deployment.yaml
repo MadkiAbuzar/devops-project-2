@@ -14,7 +14,7 @@ spec:
       labels:
         app: backend-pod
     spec:
-      dnsPolicy: Default
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: backend-pod
           image: abuzarmadki09/devops-project-2-backend
