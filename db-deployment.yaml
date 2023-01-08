@@ -14,14 +14,34 @@ spec:
       labels:
         app: db-pod
     spec:
+      livenessProbe:
+        exec:
+          command:
+            - mongo
+            - --eval
+            - db.adminCommand('ping')
+        failureThreshold: 3
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      readinessProbe:
+        exec:
+          command:
+            - mongo
+            - --eval
+            - db.adminCommand('ping')
+        failureThreshold: 3
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
       dnsPolicy: Default
       containers:
         - name: db-pod
           image: mongo
           command:
             - mongod
-            - "--bind_ip"
-            - "0.0.0.0"
+            - '--bind_ip'
+            - '0.0.0.0'
           ports:
             - containerPort: 27017
           envFrom:
