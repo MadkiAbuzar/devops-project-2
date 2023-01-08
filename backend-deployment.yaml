@@ -26,13 +26,13 @@ spec:
             httpGet:
               path: /backend/goals
               port: 80
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /backend/goals
               port: 80
-            initialDelaySeconds: 12
+            initialDelaySeconds: 35
             periodSeconds: 3
             failureThreshold: 2
   replicas: 2
