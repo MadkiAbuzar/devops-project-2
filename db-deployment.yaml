@@ -30,9 +30,12 @@ spec:
           livenessProbe:
             exec:
               command:
-                - mongosh
-                - --eval
-                - "db.adminCommand('ping')"
+                - echo
+                - -e
+                - '--eval "db.adminCommand(''ping'')"'
+                - \|
+                - xargs
+                - mongo
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 5
@@ -41,9 +44,13 @@ spec:
           readinessProbe:
             exec:
               command:
-                - mongosh
-                - --eval
-                - "db.adminCommand('ping')"
+                command:
+                  - echo
+                  - -e
+                  - '--eval "db.adminCommand(''ping'')"'
+                  - \|
+                  - xargs
+                  - mongo
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 10
