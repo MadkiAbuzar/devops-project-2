@@ -16,12 +16,14 @@ spec:
     spec:
       readinessProbe:
         httpGet:
+          scheme: HTTP
           path: /backend/goals
           port: 80
         initialDelaySeconds: 10
         periodSeconds: 5
       livenessProbe:
         httpGet:
+          scheme: HTTP
           path: /backend/goals
           port: 80
         initialDelaySeconds: 3
