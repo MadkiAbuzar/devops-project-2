@@ -14,6 +14,7 @@ spec:
       labels:
         app: frontend-pod
     spec:
+      dnsPolicy: Default
       containers:
         - name: frontend-pod
           image: abuzarmadki09/devops-project-2-frontend
