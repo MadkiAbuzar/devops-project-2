@@ -30,7 +30,7 @@ spec:
           livenessProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - db.adminCommand('ping')
             failureThreshold: 3
