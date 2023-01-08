@@ -26,7 +26,7 @@ spec:
           scheme: HTTP
           path: /backend/goals
           port: 80
-        initialDelaySeconds: 3
+        initialDelaySeconds: 12
         periodSeconds: 3
         failureThreshold: 2
       containers:
