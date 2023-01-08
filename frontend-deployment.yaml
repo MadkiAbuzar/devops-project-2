@@ -14,7 +14,7 @@ spec:
       labels:
         app: frontend-pod
     spec:
-      dnsPolicy: Default
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: frontend-pod
           image: abuzarmadki09/devops-project-2-frontend
