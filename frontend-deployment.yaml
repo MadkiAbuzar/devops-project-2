@@ -5,6 +5,19 @@ metadata:
   labels:
     app: fontend-deploy
 spec:
+  readinessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 10
+        periodSeconds: 5
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 3
+        periodSeconds: 3
+        failureThreshold: 2
   selector:
     matchLabels:
       app: frontend-pod
