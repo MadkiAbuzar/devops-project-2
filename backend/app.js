@@ -96,6 +96,10 @@ async () => {
 mongoose.connect(
 	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
 	{
+		autoReconnect: true,
+		useMongoClient: true,
+		keepAlive: 30000,
+		reconnectTries: 10000,
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		server: { auto_reconnect: true },
