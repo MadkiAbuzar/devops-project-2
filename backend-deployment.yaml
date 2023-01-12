@@ -14,7 +14,7 @@ spec:
       labels:
         app: backend-pod
     spec:
-      dnsPolicy: ClusterFirstWithHostNet
+      #dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: backend-pod
           image: abuzarmadki09/devops-project-2-backend
@@ -27,13 +27,13 @@ spec:
             httpGet:
               path: /backend/goals
               port: 80
-            initialDelaySeconds: 30
+            initialDelaySeconds: 120
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /backend/goals
               port: 80
-            initialDelaySeconds: 35
+            initialDelaySeconds: 150
             periodSeconds: 3
             failureThreshold: 2
   replicas: 2

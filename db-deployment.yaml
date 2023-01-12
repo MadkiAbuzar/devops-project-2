@@ -14,7 +14,7 @@ spec:
       labels:
         app: db-pod
     spec:
-      dnsPolicy: ClusterFirstWithHostNet
+      #dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: db-pod
           image: mongo
