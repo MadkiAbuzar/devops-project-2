@@ -84,23 +84,24 @@ app.delete('/backend/goals/:id', async (req, res) => {
 });
 
 (async () => {
-	console.log('Waiting to start connection...');
+	try {
+		console.error('Waiting to start connection...');
+	} catch (error) {}
+
 	await sleep(30000);
 	function sleep(ms) {
 		return new Promise((resolve) => {
 			setTimeout(resolve, ms);
 		});
 	}
-	console.log('wait over...');
+	try {
+		console.error('wait over...');
+	} catch (error) {}
 })();
 
 mongoose.connect(
 	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
 	{
-		autoReconnect: true,
-		useMongoClient: true,
-		keepAlive: 30000,
-		reconnectTries: 10000,
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		server: { auto_reconnect: true },
