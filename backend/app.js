@@ -83,38 +83,27 @@ app.delete('/backend/goals/:id', async (req, res) => {
 	}
 });
 
-await sleep(10000);
+console.log('Waiting to start connection...');
+await sleep(30000);
 function sleep(ms) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
 }
-
-for (let i = 0; i < 3; i++) {
-	try {
-		mongoose.connect(
-			`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
-			{
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-			},
-			(err) => {
-				if (err) {
-					console.error('FAILED TO CONNECT TO MONGODB');
-					console.error(err);
-				} else {
-					console.log('CONNECTED TO MONGODB!!');
-					app.listen(80);
-				}
-			}
-		);
-	} catch (error) {
-		console.log('failed: ', i, error);
-		await sleep(10000);
-		function sleep(ms) {
-			return new Promise((resolve) => {
-				setTimeout(resolve, ms);
-			});
+console.log('wait over...');
+mongoose.connect(
+	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	},
+	(err) => {
+		if (err) {
+			console.error('FAILED TO CONNECT TO MONGODB');
+			console.error(err);
+		} else {
+			console.log('CONNECTED TO MONGODB!!');
+			app.listen(80);
 		}
 	}
-}
+);
