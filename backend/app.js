@@ -82,15 +82,17 @@ app.delete('/backend/goals/:id', async (req, res) => {
 		res.status(500).json({ message: 'Failed to delete goal.' });
 	}
 });
+async () => {
+	console.log('Waiting to start connection...');
+	await sleep(30000);
+	function sleep(ms) {
+		return new Promise((resolve) => {
+			setTimeout(resolve, ms);
+		});
+	}
+	console.log('wait over...');
+};
 
-console.log('Waiting to start connection...');
-await sleep(30000);
-function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
-}
-console.log('wait over...');
 mongoose.connect(
 	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
 	{
