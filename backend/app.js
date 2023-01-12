@@ -93,19 +93,17 @@ async () => {
 	console.log('wait over...');
 };
 
-mongoose.connect(
-	`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	},
-	(err) => {
+var mongoUrl = `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`;
+
+var connectWithRetry = function () {
+	return mongoose.connect(mongoUrl, function (err) {
 		if (err) {
-			console.error('FAILED TO CONNECT TO MONGODB');
-			console.error(err);
-		} else {
-			console.log('CONNECTED TO MONGODB!!');
-			app.listen(80);
+			console.error(
+				'Failed to connect to mongo on startup - retrying in 5 sec',
+				err
+			);
+			setTimeout(connectWithRetry, 5000);
 		}
-	}
-);
+	});
+};
+connectWithRetry();
