@@ -14,15 +14,15 @@ spec:
       labels:
         app: backend-pod
     spec:
-      dnsPolicy: 'None'
-      dnsConfig:
-        nameservers:
-          - 10.96.0.10
-        searches:
-          - default.svc.cluster.local
-          - svc.cluster.local
-          - svc.cluster.local
-          - cluster.local
+      # dnsPolicy: 'None'
+      # dnsConfig:
+      #   nameservers:
+      #     - 10.96.0.10
+      #   searches:
+      #     - default.svc.cluster.local
+      #     - svc.cluster.local
+      #     - svc.cluster.local
+      #     - cluster.local
       containers:
         - name: backend-pod
           image: abuzarmadki09/devops-project-2-backend
