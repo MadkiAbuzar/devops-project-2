@@ -19,7 +19,10 @@ spec:
         nameservers:
           - 10.96.0.10
         searches:
-          - mongodb.default.svc.cluster.local
+          - default.svc.cluster.local
+          - svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
       containers:
         - name: backend-pod
           image: abuzarmadki09/devops-project-2-backend
